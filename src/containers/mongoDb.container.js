@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-
 class Container {
   constructor(config, collection) {
     this.config = config;
@@ -9,14 +7,12 @@ class Container {
   // connect to the database 
   async connect() {
     try{
-      const db = await mongoose.connect(this.config, {useNewUrlParser: true, useUnifiedTopology: true});
-      return db;
+      return this.config
     }catch(err){
       console.log(err);
     }
   }
   
-
   async create(data) {
     try{
       const db = await this.connect();

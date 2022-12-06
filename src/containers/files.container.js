@@ -7,25 +7,25 @@ class Container {
     this.filename = `db/${filename}.txt`;
   }
 
-  async create(product){
+  async create(value){
     const array = await this.getAll();
-    product.id = array.length > 0 ? array[array.length -1].id + 1 : 1;
+    value.id = array.length > 0 ? array[array.length -1].id + 1 : 1;
 
     try{
-      array.push(product);
+      array.push(value);
       saveFiles(this.filename, array);
-      return product.id;
+      return value.id;
     }
     catch (err) {
       console.log(err);
     }
   };
 
-  async getbyId(productId){
+  async getbyId(valueId){
     
     try{
       const array = await readFiles(this.filename);
-      return array.find(product => product.id === productId);
+      return array.find(value => value.id === valueId);
     }
     catch (err) {
       console.log(`Elemento no encontrado, error: ${err}.`);
@@ -43,13 +43,13 @@ class Container {
     
   };
 
-  async deleteById(productId){
+  async deleteById(valueId){
     try{
       const array = await readFiles(this.filename);
-      saveFiles(this.filename, array.filter(product => product.id !== productId));
+      saveFiles(this.filename, array.filter(value => value.id !== valueId));
     }
     catch (err) {
-      console.log(`No fue posible elimenar el producto: ${err}`)
+      console.log(`No fue posible elimenar el valueo: ${err}`)
     }
 
   };

@@ -1,7 +1,7 @@
 const {v4: uuidv4} = require('uuid');
 
 class Container{
-  constructor(admin, serviceAcount, db ) {
+  constructor( db ) {
     this.admin = admin;
     this.serviceAcount = serviceAcount;
     this.db = db;

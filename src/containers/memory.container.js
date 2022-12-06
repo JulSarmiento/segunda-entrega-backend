@@ -1,14 +1,14 @@
 class Container {
-  constructor(products = []){
-    this.products = products;
+  constructor(values = []){
+    this.values = values;
   }
 
-  create(product){
+  create(value){
     try{
-      product.id = this.products.length > 0 ? this.products[this.products.length - 1].id + 1 : 1;    
-      this.products.push(product)
-      console.log('Product id' ,product.id)
-      return product.id;
+      value.id = this.values.length > 0 ? this.values[this.values.length - 1].id + 1 : 1;    
+      this.values.push(value)
+      console.log('value id' ,value.id)
+      return value.id;
 
     }catch(err){
       console.log(err);
@@ -17,7 +17,7 @@ class Container {
 
   getAll() {
     try{
-      return this.products; 
+      return this.values; 
     }catch(err){  
       console.log(err);
     }
@@ -25,18 +25,18 @@ class Container {
 
   getById(id) {
     try{
-      return this.products.find(product => product.id === id);  
+      return this.values.find(value => value.id === id);  
     }catch(err){
       console.log(err);
     }
   }
 
-  update(productid, data) {
+  update(valueid, data) {
     try{
-      const current = this.getById(productid);
-      const currentIndex = this.products.indexOf(current);
-      this.products[currentIndex] = {...current, ...data};
-      return this.products[currentIndex]
+      const current = this.getById(valueid);
+      const currentIndex = this.values.indexOf(current);
+      this.values[currentIndex] = {...current, ...data};
+      return this.values[currentIndex]
     }catch(err){
       console.log(err);
     }
@@ -44,7 +44,7 @@ class Container {
 
   deleteAll(){
     try {
-      this.products = [];
+      this.values = [];
     }catch(err){
       console.log(err);
     }
@@ -52,7 +52,7 @@ class Container {
 
   deleteById(id){
     try{
-      this.products = this.products.filter(product => product.id !== id); 
+      this.values = this.values.filter(value => value.id !== id); 
     }catch(err){
       console.log(err);
     }
