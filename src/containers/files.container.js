@@ -7,7 +7,7 @@ class Container {
     this.filename = `db/${filename}.txt`;
   }
 
-  async saveProduct(product){
+  async create(product){
     const array = await this.getAll();
     product.id = array.length > 0 ? array[array.length -1].id + 1 : 1;
 
