@@ -6,4 +6,4 @@ class Products extends Container {
   }
 }
 
-module.exports = new Products();
+module.exports = new Products(); 

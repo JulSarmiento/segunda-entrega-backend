@@ -1,9 +1,13 @@
 const {v4: uuidv4} = require('uuid');
+const admin = require('firebase-admin');
+const serviceAcount = require('../config/firebase.json');
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAcount),
+});
 
 class Container{
   constructor( db ) {
-    this.admin = admin;
-    this.serviceAcount = serviceAcount;
     this.db = db;
   }
 
@@ -18,29 +22,31 @@ class Container{
       return data.id;
 
     }catch(err){
-      console.log(err);
+      throw new Error(`Cannot add the element: ${err}`);
     } 
   }
 
   async getAll(){
     try{
       let data = await this.query.get();
+      if(data.empty) throw new Error("The array is empty");
       let docs = data.docs;
       return docs.map(doc => doc.data());
 
     }catch(err){
-      console.log(err);
+      throw new Error(`Cannot read the file: ${err}`);
     }
   }
 
   async getById(id){
     try{
       let data = this.query.doc(id);
+      if(!data) throw new Error("Document does not exist");
       let item = await data.get();
       return item.data();
 
     }catch(err){
-      console.log(err);
+      throw new Error(`Cannot read the file: ${err}`);
     }
   }
 

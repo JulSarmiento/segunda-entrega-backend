@@ -21,7 +21,8 @@
   "homepage": "https://github.com/JulSarmiento/segunda-entrega-backend#readme",
   "dependencies": {
     "dotenv": "^16.0.3",
-    "mongoose": "^6.7.5",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.0",
     "nodemon": "^2.0.20",
     "uuid": "^9.0.0"
   }

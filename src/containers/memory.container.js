@@ -3,7 +3,7 @@ class Container {
     this.values = values;
   }
 
-  create(value){
+  async create(value){
     try{
       value.id = this.values.length > 0 ? this.values[this.values.length - 1].id + 1 : 1;    
       this.values.push(value)
@@ -15,7 +15,7 @@ class Container {
     }
   }
 
-  getAll() {
+  async getAll() {
     try{
       return this.values; 
     }catch(err){  
@@ -23,7 +23,7 @@ class Container {
     }
   }
 
-  getById(id) {
+  async getById(id) {
     try{
       return this.values.find(value => value.id === id);  
     }catch(err){
@@ -31,7 +31,7 @@ class Container {
     }
   }
 
-  update(valueid, data) {
+  async update(valueid, data) {
     try{
       const current = this.getById(valueid);
       const currentIndex = this.values.indexOf(current);
@@ -42,7 +42,7 @@ class Container {
     }
   }
 
-  deleteAll(){
+  async deleteAll(){
     try {
       this.values = [];
     }catch(err){

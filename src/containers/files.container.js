@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { v4: uuidv4 } = require('uuid');
 const readFiles = require("../utilities/readfile");
 const saveFiles = require("../utilities/saveFile");
 
@@ -9,7 +10,8 @@ class Container {
 
   async create(value){
     const array = await this.getAll();
-    value.id = array.length > 0 ? array[array.length -1].id + 1 : 1;
+    if(!value) throw new Error("The value is empty");
+    value.id = uuidv4();
 
     try{
       array.push(value);
@@ -17,7 +19,7 @@ class Container {
       return value.id;
     }
     catch (err) {
-      console.log(err);
+      throw new Error(`Cannot add the element: ${err}`);
     }
   };
 
@@ -25,20 +27,23 @@ class Container {
     
     try{
       const array = await readFiles(this.filename);
+      if(array.length === 0) throw new Error("The array is empty");
       return array.find(value => value.id === valueId);
     }
     catch (err) {
-      console.log(`Elemento no encontrado, error: ${err}.`);
+      throw new Error(`Cannot read the file: ${err}`);
     }
 
   };
 
   async getAll(){
     try{
-      return await readFiles(this.filename);
+      const data = await readFiles(this.filename);
+      if(!data) throw new Error("The array is empty");
+      return data
     }
     catch (err) {
-      console.log(err);
+      throw new Error(`Cannot read the file: ${err}`);
     }
     
   };
@@ -46,20 +51,22 @@ class Container {
   async deleteById(valueId){
     try{
       const array = await readFiles(this.filename);
+      if(array.length === 0) throw new Error("The array is empty");
       saveFiles(this.filename, array.filter(value => value.id !== valueId));
     }
     catch (err) {
-      console.log(`No fue posible elimenar el valueo: ${err}`)
+      throw new Error(`Cannot delete the element: ${err}`)
     }
-
   };
 
   async deleteAll(){
     try {
-      const data = await fs.promises.writeFile(this.filename, "");
+      await fs.promises.writeFile(this.filename, "");
+      return `All elements were deleted.`
     }
     catch (err) {
       console.log(err);
+      throw new Error(`Cannot delete all elements: ${err}`);
     }
   };
 }
