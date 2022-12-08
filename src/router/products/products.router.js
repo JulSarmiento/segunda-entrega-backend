@@ -31,8 +31,8 @@ router.get("/:id", (req, res, next) => {
 router.post("/", (req, res, next) => {
   products
     .create(req.body)
-    .then((data) => {
-      res.status(201).json(data);
+    .then((id) => {
+      res.status(201).json({id});
     })
     .catch(next);
 });
@@ -50,9 +50,12 @@ router.put("/:id", (req, res, next) => {
 // DELETE /products/:id
 router.delete("/:id", (req, res, next) => {
   products
-    .delete(req.params.id)
+    .deleteById(req.params.id)
     .then((data) => {
-      res.status(204).send();
+      res.status(200).json({
+        success: true,
+        message: `Product "${req.params.id}" deleted`,
+      });
     })
     .catch(next);
 });

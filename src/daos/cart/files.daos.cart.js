@@ -2,7 +2,7 @@ const Container = require('../../containers/files.container');
 
 class Cart extends Container {
   constructor(){
-    super('cart');
+    super('carts');
   }
 }
 

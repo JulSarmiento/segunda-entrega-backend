@@ -1,7 +1,7 @@
-const CONTAINER = process.env.CONTAINER || 'mongodb';
+const DATA_CORE = process.env.DATA_CORE || 'memory';
 
-const products = require(`./products/${CONTAINER}.daos.products`);
-const carts = require(`./cart/${CONTAINER}.daos.cart`);
+const products = require(`./products/${DATA_CORE}.daos.products`);
+const carts = require(`./cart/${DATA_CORE}.daos.cart`);
 
 module.exports = { 
   products,

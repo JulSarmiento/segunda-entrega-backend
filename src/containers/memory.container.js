@@ -1,64 +1,57 @@
 const {v4: uuidv4} = require('uuid');
 
 class Container {
-  constructor(values = []){
-    this.values = values;
+  constructor(db = []){
+    this.db = db;
   }
 
   async create(value){
     try{
       value.id = uuidv4(); 
-      this.values.push(value)
-      console.log('value id' ,value.id)
+      value.timestamp = new Date().toLocaleString();
+      this.db.push(value)
       return value.id;
 
     } catch(err){
       throw new Error(`Cannot add the element: ${err}`);
-    }
-  }
+    };
+  };
 
   async getAll() {
     try{
-      return this.values; 
+      return this.db; 
     }catch(err){  
       throw new Error(`Cannot read the file: ${err}`);
-    }
-  }
+    };
+  };
 
   async getById(id) {
     try{
-      return this.values.find(value => value.id === id);  
+      return this.db.find(value => value.id === id);  
     }catch(err){
       throw new Error(`Cannot read the file: ${err}`);
-    }
-  }
+    };
+  };
 
   async update(valueid, data) {
     try{
-      const current = this.getById(valueid);
-      const currentIndex = this.values.indexOf(current);
-      this.values[currentIndex] = {...current, ...data};
-      return this.values[currentIndex]
+      const current = await this.getById(valueid);
+      const currentIndex = this.db.indexOf(current);
+      this.db[currentIndex] = {...current, ...data};
+      return this.db[currentIndex]
     }catch(err){
       console.log(err);
-    }
-  }
+    };
+  };
 
-  async deleteAll(){
-    try {
-      this.values = [];
-    }catch(err){
-      throw new Error(`Cannot delete all elements: ${err}`);
-    }
-  }
-
-  deleteById(id){
+  async deleteById(id){
     try{
-      this.values = this.values.filter(value => value.id !== id); 
+      this.db = this.db.filter(value => value.id !== id); 
+      return this.db;
     }catch(err){
       throw new Error(`Cannot delete the element: ${err}`)
-    }
-  }
+    };
+  };
   
 }
 

@@ -31,8 +31,8 @@ router.get("/:id", (req, res, next) => {
 router.post("/", (req, res, next) => {
   carts
     .create(req.body)
-    .then((data) => {
-      res.status(201).json(data);
+    .then((id) => {
+      res.status(201).json({id});
     })
     .catch(next);
 });

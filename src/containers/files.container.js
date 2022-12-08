@@ -12,6 +12,7 @@ class Container {
     const array = await this.getAll();
     if(!value) throw new Error("The value is empty");
     value.id = uuidv4();
+    value.timestamp = new Date().toLocaleString();
 
     try{
       array.push(value);
@@ -39,7 +40,6 @@ class Container {
   async getAll(){
     try{
       const data = await readFiles(this.filename);
-      if(!data) throw new Error("The array is empty");
       return data
     }
     catch (err) {
