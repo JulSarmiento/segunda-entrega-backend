@@ -1,4 +1,4 @@
-function errorHandler(err, res, _req, _next) {
+function errorHandler(err, res, _req) {
   console.log(err);
   res.status(500).send(err.message);
 }
