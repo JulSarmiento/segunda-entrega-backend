@@ -48,6 +48,21 @@ class Container {
     
   };
 
+  async update(valueId, data){
+    try{
+      const array = await readFiles(this.filename);
+      if(array.length === 0) throw new Error("The array is empty");
+      const current = await this.getbyId(valueId);
+      const currentIndex = array.indexOf(current);
+      array[currentIndex] = {...current, ...data};
+      saveFiles(this.filename, array);
+      return array[currentIndex];
+
+    } catch (err) {
+      throw new Error(`Cannot update the element: ${err}`);
+    }
+  };
+
   async deleteById(valueId){
     try{
       const array = await readFiles(this.filename);

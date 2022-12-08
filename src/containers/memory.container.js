@@ -1,3 +1,5 @@
+const {v4: uuidv4} = require('uuid');
+
 class Container {
   constructor(values = []){
     this.values = values;
@@ -5,13 +7,13 @@ class Container {
 
   async create(value){
     try{
-      value.id = this.values.length > 0 ? this.values[this.values.length - 1].id + 1 : 1;    
+      value.id = uuidv4(); 
       this.values.push(value)
       console.log('value id' ,value.id)
       return value.id;
 
-    }catch(err){
-      console.log(err);
+    } catch(err){
+      throw new Error(`Cannot add the element: ${err}`);
     }
   }
 
@@ -19,7 +21,7 @@ class Container {
     try{
       return this.values; 
     }catch(err){  
-      console.log(err);
+      throw new Error(`Cannot read the file: ${err}`);
     }
   }
 
@@ -27,7 +29,7 @@ class Container {
     try{
       return this.values.find(value => value.id === id);  
     }catch(err){
-      console.log(err);
+      throw new Error(`Cannot read the file: ${err}`);
     }
   }
 
@@ -46,7 +48,7 @@ class Container {
     try {
       this.values = [];
     }catch(err){
-      console.log(err);
+      throw new Error(`Cannot delete all elements: ${err}`);
     }
   }
 
@@ -54,7 +56,7 @@ class Container {
     try{
       this.values = this.values.filter(value => value.id !== id); 
     }catch(err){
-      console.log(err);
+      throw new Error(`Cannot delete the element: ${err}`)
     }
   }
   
