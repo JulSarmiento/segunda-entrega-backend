@@ -7,8 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "start:dev": "nodemon server.js",
-    "dbMYSQL:setup": "node SQL/create/create.knex.js",
-    "dbSQLITEL:setup": "node SQLITE3/create/create.knex.js"
+    "db:mysql:setup": "node MYSQL/scripts/create.knex.js",
+    "db:mysql:destroy": "node MYSQL/scripts/destroy.knex.js",
+    "db:sqlite:setup": "node SQLITE3/scripts/create.knex.js",
+    "db:sqlite:destroy": "npx rimraf SQLITE3/db/db.sqlite"
   },
   "repository": {
     "type": "git",

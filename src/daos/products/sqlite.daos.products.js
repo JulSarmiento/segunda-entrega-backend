@@ -1,9 +1,9 @@
 const Container = require('../../containers/sqlite.container');
 
-class Producst extends Container {
+class Products extends Container {
   constructor() {
     super('products');
   }
 } 
 
-module.exports = Producst;
+module.exports = new Products();

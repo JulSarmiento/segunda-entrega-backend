@@ -1,4 +1,4 @@
-const Container = require('../../containers/sql.container');
+const Container = require('../../containers/mysql.container');
 
 class Products extends Container { 
   constructor(){

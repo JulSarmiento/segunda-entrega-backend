@@ -1,5 +1,5 @@
 const knex = require("knex");
-const knexConfig = require("../../SQLITE3/config");
+const knexConfig = require("../../MYSQL/config");
 
 class Container {
   constructor(tableName) {
@@ -19,8 +19,8 @@ class Container {
 
   async getById(id) {
     return this.knex(this.tableName)
-      .where({ id })
-      .first()
+      .where({ id: id })
+      .then(([id]) => id);
   }
 
   async update(id, data) {

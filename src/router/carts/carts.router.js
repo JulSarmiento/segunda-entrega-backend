@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { carts } = require("../../daos");
+const cartExist = require("../../middlewares/cartExist.middleware");
 
 // GET /carts
 router.get("/", (_req, res, next) => {
@@ -38,7 +39,7 @@ router.post("/", (req, res, next) => {
 });
 
 // PUT /carts/:id
-router.put("/:id", (req, res, next) => {
+router.put("/:id", cartExist(carts), (req, res, next) => {
   carts
     .update(req.params.id, req.body)
     .then((data) => {
@@ -48,7 +49,7 @@ router.put("/:id", (req, res, next) => {
 });
 
 // DELETE /carts/:id
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", cartExist(carts), (req, res, next) => {
   carts
     .delete(req.params.id)
     .then((data) => {
