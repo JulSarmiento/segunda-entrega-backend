@@ -8,6 +8,7 @@ const config = {
 class Container {
   constructor(collection) {
     this.collection = collection;
+    this.dbName = config.dbName;
   }
 
   async connect() {
@@ -78,7 +79,7 @@ class Container {
       return result;
     } catch (err) {
       console.log(err);
-    } 
+    }
   }
 
   async deleteById(id) {
@@ -93,7 +94,6 @@ class Container {
       return result;
     } catch (err) {
       console.log(err);
-
     }
   }
 }
